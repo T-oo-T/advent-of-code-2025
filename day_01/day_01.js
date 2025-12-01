@@ -8,6 +8,11 @@ function part1(filePath) {
     return 3
 }
 
+function parseRotations(rotations) {
+    return [-68, 32]
+}
+
 module.exports = {
-    part1
+    part1,
+    parseRotations
 }

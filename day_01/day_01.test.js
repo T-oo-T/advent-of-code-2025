@@ -1,6 +1,13 @@
 const { test } = require("node:test")
 const assert = require("assert").strict
-const { part1 } = require("./day_01")
+const { part1, parseRotations } = require("./day_01")
+
+test("parseRotations", () => {
+    assert.deepStrictEqual(
+        parseRotations(["L68", "R32"]),
+        [-68, 32]
+    )
+})
 
 test("part 1, sample input", () => {
     assert.equal(
