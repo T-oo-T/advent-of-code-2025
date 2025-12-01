@@ -26,7 +26,10 @@ function part2(filePath) {
         for (let j = 0; j < Math.abs(rotations[i]); j++) {
             dialPosition += Math.sign(rotations[i])
             dialPosition = mod(dialPosition, 100)
-            if (dialPosition == 0) zeroPositions++
+            
+            if (Math.abs(dialPosition) == 0) {
+                zeroPositions++
+            } 
         }
     }
 
