@@ -6,7 +6,9 @@ function part1(filePath) {
     let zeroPositions = 0
 
     for (let i = 0; i < rotations.length; i++) {
-        dialPosition = mod(dialPosition + rotations[i], 100)
+        dialPosition += rotations[i]
+        dialPosition = mod(dialPosition, 100)
+
         if (Math.abs(dialPosition) == 0) {
             zeroPositions++
         }
@@ -23,7 +25,7 @@ function parseRotations(rotations) {
         if (direction == "L") {
             return -amount
         } else {
-            return +amount
+            return amount
         }
     })
 }
