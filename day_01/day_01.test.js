@@ -27,3 +27,10 @@ test("part 1, sample input 2", () => {
         4
     )
 })
+
+test("part 1, real input", () => {
+    assert.equal(
+        part1("./input1.txt"),
+        1141
+    )
+})
