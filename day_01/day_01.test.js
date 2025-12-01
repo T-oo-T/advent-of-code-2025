@@ -41,3 +41,10 @@ test("part 2, sample input 1", () => {
         6
     )
 })
+
+test.skip("part 2, sample input 2", () => {
+    assert.equal(
+        part2("./input-sample-2.txt"),
+        7
+    )
+})

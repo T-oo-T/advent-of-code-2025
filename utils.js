@@ -8,7 +8,12 @@ function mod(a, b) {
     return (b + a % b) % b
 }
 
+function quot(a, b) {
+    return Math.floor(a / b)
+}
+
 module.exports = {
     readFile,
-    mod
+    mod,
+    quot
 }
