@@ -1,10 +1,10 @@
 const { test } = require("node:test")
 const assert = require("assert").strict
+const { part1 } = require("./day_01")
 
-test("foo", () => {
-    assert.deepEqual(1,1)
-})
-
-test("bar", () => {
-    assert.deepEqual(1,1)
+test("part 1, sample input", () => {
+    assert.equal(
+        part1("./input-sample.txt"),
+        3
+    )
 })
