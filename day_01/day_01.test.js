@@ -1,6 +1,6 @@
 const { test } = require("node:test")
 const assert = require("assert").strict
-const { part1, parseRotations } = require("./day_01")
+const { part1, part2, parseRotations } = require("./day_01")
 
 test("parseRotations", () => {
     assert.deepStrictEqual(
@@ -32,5 +32,12 @@ test("part 1, real input", () => {
     assert.equal(
         part1("./input1.txt"),
         1141
+    )
+})
+
+test("part 2, sample input 1", () => {
+    assert.equal(
+        part2("./input-sample.txt"),
+        6
     )
 })

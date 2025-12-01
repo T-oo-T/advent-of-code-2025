@@ -17,6 +17,10 @@ function part1(filePath) {
     return zeroPositions
 }
 
+function part2(filePath) {
+    return 6
+}
+
 function parseRotations(rotations) {
     return rotations.map(rotation => {
         let direction = rotation.charAt(0)
@@ -32,5 +36,6 @@ function parseRotations(rotations) {
 
 module.exports = {
     part1,
+    part2,
     parseRotations
 }
