@@ -42,9 +42,16 @@ test("part 2, sample input 1", () => {
     )
 })
 
-test.skip("part 2, sample input 2", () => {
+test("part 2, sample input 2", () => {
     assert.equal(
         part2("./input-sample-2.txt"),
         7
+    )
+})
+
+test("part 2, real input", () => {
+    assert.equal(
+        part2("./input1.txt"),
+        6634
     )
 })

@@ -23,10 +23,15 @@ function part2(filePath) {
     let zeroPositions = 0
 
     for (let i = 0; i < rotations.length; i++) {
-        zeroPositions += Math.abs(quot(dialPosition + rotations[i], 100))
-        
-        dialPosition += rotations[i]
-        dialPosition = mod(dialPosition, 100)
+        for (let j = 0; j < Math.abs(rotations[i]); j++) {
+            if (rotations[i] < 0) {
+                dialPosition--
+            } else {
+                dialPosition++
+            }
+            dialPosition = mod(dialPosition, 100)
+            if (dialPosition == 0) zeroPositions++
+        }
     }
 
     return zeroPositions
