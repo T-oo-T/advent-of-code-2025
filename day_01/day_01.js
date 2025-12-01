@@ -24,11 +24,7 @@ function part2(filePath) {
 
     for (let i = 0; i < rotations.length; i++) {
         for (let j = 0; j < Math.abs(rotations[i]); j++) {
-            if (rotations[i] < 0) {
-                dialPosition--
-            } else {
-                dialPosition++
-            }
+            dialPosition += Math.sign(rotations[i])
             dialPosition = mod(dialPosition, 100)
             if (dialPosition == 0) zeroPositions++
         }
