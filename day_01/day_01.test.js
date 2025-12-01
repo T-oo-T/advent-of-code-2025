@@ -7,6 +7,11 @@ test("parseRotations", () => {
         parseRotations(["L68", "R32"]),
         [-68, 32]
     )
+
+    assert.deepStrictEqual(
+        parseRotations(["R27", "L12"]),
+        [27, -12]
+    )
 })
 
 test("part 1, sample input", () => {

@@ -9,7 +9,16 @@ function part1(filePath) {
 }
 
 function parseRotations(rotations) {
-    return [-68, 32]
+    return rotations.map(rotation => {
+        let direction = rotation.charAt(0)
+        let amount = parseInt(rotation.slice(1), 10)
+
+        if (direction == "L") {
+            return -amount
+        } else {
+            return +amount
+        }
+    })
 }
 
 module.exports = {
