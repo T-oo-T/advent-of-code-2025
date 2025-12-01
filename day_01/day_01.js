@@ -1,11 +1,18 @@
-const { readFile } = require("../utils")
+const { readFile, mod } = require("../utils")
 
 function part1(filePath) {
-    let rotations = readFile(filePath).split("\n")
+    let rotations = parseRotations(readFile(filePath).split("\n"))
     let dialPosition = 50
+    let zeroPositions = 0
 
-    console.log(rotations)
-    return 3
+    for (let i = 0; i < rotations.length; i++) {
+        dialPosition = mod(dialPosition + rotations[i], 100)
+        if (Math.abs(dialPosition) == 0) {
+            zeroPositions++
+        }
+    }
+
+    return zeroPositions
 }
 
 function parseRotations(rotations) {
