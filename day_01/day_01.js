@@ -1,4 +1,4 @@
-const { readFile, mod, quot } = require("../utils")
+const { readFile, mod } = require("../utils")
 
 function part1(filePath) {
     let rotations = parseRotations(readFile(filePath).split("\n"))
