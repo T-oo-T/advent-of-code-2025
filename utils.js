@@ -9,7 +9,7 @@ function mod(a, b) {
 }
 
 function quot(a, b) {
-    return Math.floor(a / b)
+    return Math.abs(Math.floor(a / b))
 }
 
 module.exports = {
