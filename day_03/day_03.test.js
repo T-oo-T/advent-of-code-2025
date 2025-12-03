@@ -22,11 +22,13 @@ function maxJoltage(b) {
         r--
     }
 
-    return Number(lmax.toString() + rmax.toString())
+    lmax *= 10
+
+    return lmax + rmax
 }
 
-function banksTotalJoltage(banks) {
-    return banks.map(maxJoltage).reduce(sum)
+function banksTotalJoltage(banks,fn=maxJoltage) {
+    return banks.map(fn).reduce(sum)
 }
 
 function part1(filePath) {
@@ -62,20 +64,41 @@ test("maxJoltage", () => {
 })
 
 function maxOverloadJoltage(b) {
-    for (let i = 0; i < 6; i++) {
-        console.log("running maxJoltage on b", maxJoltage(b))
+    let n = b.length
+    let res = 0
+    let prevMaxIndex = -1
+    
+    for (let i = 12; i > 0; i--) {
+        let maxv = 0, maxi = -1
+
+        for (let j = prevMaxIndex + 1; j <= n - i; j++) {
+            if (b[j] > maxv) {
+                maxv = b[j]
+                maxi = j
+            }
+        }
+        
+        prevMaxIndex = maxi
+        res += maxv * Math.pow(10, i-1)
     }
-    return 987654321111
+
+    return res
 }
 
-test("maxJoltage", () => {
+function part2(filePath) {
+    let banks = readFile(filePath).split("\n").map(s => s.split(""))
+    return banksTotalJoltage(banks,maxOverloadJoltage)
+}
+
+test("maxOverloadJoltage", () => {
     assert.equal(maxOverloadJoltage([
         '9', '8', '7', '6',
         '5', '4', '3', '2',
         '1', '1', '1', '1',
         '1', '1', '1'
       ]), 987654321111)
-    /*assert.equal(maxOverloadJoltage([
+
+    assert.equal(maxOverloadJoltage([
         '8', '1', '1', '1',
         '1', '1', '1', '1',
         '1', '1', '1', '1',
@@ -92,7 +115,7 @@ test("maxJoltage", () => {
         '8', '1', '9', '1',
         '1', '1', '1', '2',
         '1', '1', '1'
-      ]), 888911112111)*/
+      ]), 888911112111)
 })
 
 test("part 1, sample input", () => {
@@ -101,4 +124,12 @@ test("part 1, sample input", () => {
 
 test("part 1, real input", () => {
     assert.equal(part1("./input-real.txt"), 17087)
+})
+
+test("part 2, sample input", () => {
+    assert.equal(part2("./input-sample.txt"), 3121910778619)
+})
+
+test("part 2, real input", () => {
+    assert.equal(part2("./input-real.txt"), 169019504359949)
 })
