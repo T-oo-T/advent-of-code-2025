@@ -27,13 +27,13 @@ function maxJoltage(b) {
     return lmax + rmax
 }
 
-function banksTotalJoltage(banks,fn=maxJoltage) {
+function banksTotalJoltage(banks, fn) {
     return banks.map(fn).reduce(sum)
 }
 
 function part1(filePath) {
     let banks = readFile(filePath).split("\n").map(s => s.split(""))
-    return banksTotalJoltage(banks)
+    return banksTotalJoltage(banks, maxJoltage)
 }
 
 test("maxJoltage", () => {
@@ -87,7 +87,7 @@ function maxOverloadJoltage(b) {
 
 function part2(filePath) {
     let banks = readFile(filePath).split("\n").map(s => s.split(""))
-    return banksTotalJoltage(banks,maxOverloadJoltage)
+    return banksTotalJoltage(banks, maxOverloadJoltage)
 }
 
 test("maxOverloadJoltage", () => {
