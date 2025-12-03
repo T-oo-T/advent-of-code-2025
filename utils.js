@@ -12,8 +12,13 @@ function quot(a, b) {
     return Math.abs(Math.floor(a / b))
 }
 
+function sum(a, b) {
+    return a + b
+}
+
 module.exports = {
     readFile,
     mod,
-    quot
+    quot,
+    sum
 }
