@@ -50,14 +50,16 @@ function maxOverloadJoltage(b) {
     return res
 }
 
+function parseInput(filePath) {
+    return readFile(filePath).split("\n").map(s => s.split(""))
+}
+
 function part1(filePath) {
-    let banks = readFile(filePath).split("\n").map(s => s.split(""))
-    return banksTotalJoltage(banks, maxJoltage)
+    return banksTotalJoltage(parseInput(filePath), maxJoltage)
 }
 
 function part2(filePath) {
-    let banks = readFile(filePath).split("\n").map(s => s.split(""))
-    return banksTotalJoltage(banks, maxOverloadJoltage)
+    return banksTotalJoltage(parseInput(filePath), maxOverloadJoltage)
 }
 
 module.exports = {
