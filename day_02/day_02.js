@@ -39,16 +39,14 @@ function sequenceOfRepeats(number) {
 
     for (let k = 2; k <= n; k++) {
         if (n % k == 0) {
-            let parts = []
             let partSize = n/k
-
-            for (let i = 0; i < k; i++) {
-                parts.push(t.substring(i*partSize, i*partSize+partSize))
-            }
-
             let allPartsEqual = true
-            for (let i = 0; i < parts.length - 1; i++) {
-                if (parts[i] != parts[i+1]) allPartsEqual = false
+            let getSub = i => t.substring(i*partSize, i*partSize+partSize)
+
+            for (let i = 0; i < k - 1; i++) {
+                if (getSub(i) != getSub(i+1)) {
+                    allPartsEqual = false
+                }
             }
 
             if (allPartsEqual) return true
