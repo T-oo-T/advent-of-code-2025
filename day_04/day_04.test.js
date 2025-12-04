@@ -1,6 +1,6 @@
 const { test } = require("node:test")
 const assert = require("assert").strict
-const { readFile } = require("../utils")
+const { readFile, sum } = require("../utils")
 
 function parseFile(filePath) {
     return readFile(filePath)
@@ -47,7 +47,6 @@ function accessibleRolls(grid) {
         for (let j = 0; j < grid[i].length; j++) {
             if (grid[i][j] == 0) continue
             
-            let adjacentRolls = 0
             let adjacentCoords = [
                 // previous row
                 [i-1,j-1], [i-1,j], [i-1,j+1],
@@ -57,10 +56,8 @@ function accessibleRolls(grid) {
                 [i,j-1], [i,j+1]
             ]
 
-            for (let coord of adjacentCoords) {
-                adjacentRolls += val(coord)
-            }
-            
+            let adjacentRolls = adjacentCoords.map(val).reduce(sum)
+
             if (adjacentRolls < 4) count++
         }
     }
