@@ -44,15 +44,16 @@ function part1(filePath) {
 function part2(filePath) {
     let grid = parseFile(filePath)
     let totalRollsRemoved = 0
-    
-    for (let rollsToRemove = accessibleRolls(grid); 
-         rollsToRemove.length > 0; 
-         rollsToRemove = accessibleRolls(grid)) {
+    let rollsToRemove = accessibleRolls(grid)
+
+    while (rollsToRemove.length > 0) {
         totalRollsRemoved += rollsToRemove.length
 
         for (let [i, j] of rollsToRemove) {
             grid[i][j] = 0
         }
+
+        rollsToRemove = accessibleRolls(grid)
     }
 
     return totalRollsRemoved
