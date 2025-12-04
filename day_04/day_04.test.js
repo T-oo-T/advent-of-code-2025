@@ -1,6 +1,6 @@
 const { test } = require("node:test")
 const assert = require("assert").strict
-const { parseFile, accessibleRolls, part1, part2 } = require("./day_04")
+const { parseFile, accessibleRolls, part1, part2 } = require("./day_04.ts")
 
 const sampleInputData = [
     [0,0,1,1,0,1,1,1,1,0],

@@ -1,18 +1,20 @@
 const { readFile, sum } = require("../utils")
 
-function parseFile(filePath) {
+type Grid = number[][]
+
+function parseFile(filePath: string): Grid {
     return readFile(filePath)
         .split("\n")
-        .map(row => 
+        .map((row: string) => 
             row.split("")
                 .map(char => char == "." ? 0 : 1)
         )
 }
 
-function accessibleRolls(grid) {
-    let rolls = []
+function accessibleRolls(grid: Grid): Grid {
+    let rolls: number[][] = []
 
-    let val = ([i, j]) => grid[i]?.[j] || 0
+    let val = ([i, j]: number[]): number => grid[i]?.[j] || 0
 
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
@@ -27,7 +29,7 @@ function accessibleRolls(grid) {
                 [i,j-1], [i,j+1]
             ]
 
-            let adjacentRolls = adjacentCoords.map(val).reduce(sum)
+            let adjacentRolls = adjacentCoords.map(coord => val(coord)).reduce(sum)
 
             if (adjacentRolls < 4) rolls.push([i,j])
         }
@@ -36,12 +38,12 @@ function accessibleRolls(grid) {
     return rolls
 }
 
-function part1(filePath) {
+function part1(filePath: string): number {
     let grid = parseFile(filePath)
     return accessibleRolls(grid).length
 }
 
-function part2(filePath) {
+function part2(filePath: string): number {
     let grid = parseFile(filePath)
     let totalRollsRemoved = 0
     let rollsToRemove = accessibleRolls(grid)
