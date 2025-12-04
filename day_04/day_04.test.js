@@ -41,27 +41,25 @@ const sampleInputDataVariation = [
 function accessibleRolls(grid) {
     let count = 0
 
-    let val = (i, j) => grid[i]?.[j] || 0
+    let val = ([i, j]) => grid[i]?.[j] || 0
 
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if (grid[i][j] == 0) continue
-
+            
             let adjacentRolls = 0
-            
-            // previous row
-            adjacentRolls += val(i-1,j-1)
-            adjacentRolls += val(i-1,j)
-            adjacentRolls += val(i-1,j+1)
-            
-            // next row
-            adjacentRolls += val(i+1,j-1)
-            adjacentRolls += val(i+1,j)
-            adjacentRolls += val(i+1,j+1)
-            
-            // same row
-            adjacentRolls += val(i,j-1)
-            adjacentRolls += val(i,j+1)
+            let adjacentCoords = [
+                // previous row
+                [i-1,j-1], [i-1,j], [i-1,j+1],
+                // next row
+                [i+1,j-1], [i+1,j], [i+1,j+1],
+                // same row
+                [i,j-1], [i,j+1]
+            ]
+
+            for (let coord of adjacentCoords) {
+                adjacentRolls += val(coord)
+            }
             
             if (adjacentRolls < 4) count++
         }
