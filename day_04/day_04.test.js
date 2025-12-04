@@ -39,7 +39,7 @@ const sampleInputDataVariation = [
 ]
 
 function accessibleRolls(grid) {
-    let count = 0
+    let rolls = []
 
     let val = ([i, j]) => grid[i]?.[j] || 0
 
@@ -58,16 +58,32 @@ function accessibleRolls(grid) {
 
             let adjacentRolls = adjacentCoords.map(val).reduce(sum)
 
-            if (adjacentRolls < 4) count++
+            if (adjacentRolls < 4) rolls.push([i,j])
         }
     }
 
-    return count
+    return rolls
 }
 
 function part1(filePath) {
     let grid = parseFile(filePath)
-    return accessibleRolls(grid)
+    return accessibleRolls(grid).length
+}
+
+function part2(filePath) {
+    let grid = parseFile(filePath)
+    let totalRollsRemoved = 0
+
+    while (accessibleRolls(grid).length > 0) {
+        let rollsToRemove = accessibleRolls(grid)
+        totalRollsRemoved += rollsToRemove.length
+
+        for (let [i, j] of rollsToRemove) {
+            grid[i][j] = 0
+        }
+    }
+
+    return totalRollsRemoved
 }
 
 test("parseFile", () => {
@@ -75,14 +91,24 @@ test("parseFile", () => {
 })
 
 test("accessibleRolls", () => {
-    assert.deepStrictEqual(accessibleRolls(sampleInputData), 13)
-    assert.deepStrictEqual(accessibleRolls(sampleInputDataVariation), 17)
+    assert.deepStrictEqual(accessibleRolls(sampleInputData).length, 13)
+    assert.deepStrictEqual(accessibleRolls(sampleInputDataVariation).length, 17)
 })
 
 test("part 1, sample input", () => {
+    assert.deepStrictEqual(part1("./input-empty.txt"), 0)
     assert.deepStrictEqual(part1("./input-sample.txt"), 13)
 })
 
 test("part 1, real input", () => {
     assert.deepStrictEqual(part1("./input-real.txt"), 1393)
+})
+
+test("part 2, sample input", () => {
+    assert.deepStrictEqual(part2("./input-empty.txt"), 0)
+    assert.deepStrictEqual(part2("./input-sample.txt"), 43)
+})
+
+test("part 2, real input", () => {
+    assert.deepStrictEqual(part2("./input-real.txt"), 8643)
 })
