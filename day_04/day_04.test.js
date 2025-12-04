@@ -33,24 +33,24 @@ test("parseFile", () => {
 })
 
 test("accessibleRolls", () => {
-    assert.deepStrictEqual(accessibleRolls(sampleInputData).length, 13)
-    assert.deepStrictEqual(accessibleRolls(sampleInputDataVariation).length, 17)
+    assert.equal(accessibleRolls(sampleInputData).length, 13)
+    assert.equal(accessibleRolls(sampleInputDataVariation).length, 17)
 })
 
 test("part 1, sample input", () => {
-    assert.deepStrictEqual(part1("./input-empty.txt"), 0)
-    assert.deepStrictEqual(part1("./input-sample.txt"), 13)
+    assert.equal(part1("./input-empty.txt"), 0)
+    assert.equal(part1("./input-sample.txt"), 13)
 })
 
 test("part 1, real input", () => {
-    assert.deepStrictEqual(part1("./input-real.txt"), 1393)
+    assert.equal(part1("./input-real.txt"), 1393)
 })
 
 test("part 2, sample input", () => {
-    assert.deepStrictEqual(part2("./input-empty.txt"), 0)
-    assert.deepStrictEqual(part2("./input-sample.txt"), 43)
+    assert.equal(part2("./input-empty.txt"), 0)
+    assert.equal(part2("./input-sample.txt"), 43)
 })
 
 test("part 2, real input", () => {
-    assert.deepStrictEqual(part2("./input-real.txt"), 8643)
+    assert.equal(part2("./input-real.txt"), 8643)
 })
