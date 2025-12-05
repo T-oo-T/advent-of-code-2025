@@ -15,10 +15,11 @@ function parseFile(filePath: string): [Range[], number[]] {
 
 export function part1(filePath: string): number {
     let [idRanges, availableIds] = parseFile(filePath)
+    let mergedRanges = mergeRangeList(idRanges)
     
     return availableIds
         .filter(id => 
-            idRanges.some((range) => range[0] <= id && id <= range[1]))
+            mergedRanges.some((range) => range[0] <= id && id <= range[1]))
         .length
 }
 
