@@ -30,12 +30,12 @@ test("mergeRanges", () => {
     // a:     16 ----- 20
     // b: 12 ----- 18
     assert.deepEqual(mergeRanges([16,20], [12,18]), [12,20])
-    // a: 12 --- 18
-    // b:           20 ---- 22
-    assert.deepEqual(mergeRanges([12,18], [20,22]), null)
-    // a: 12 -------- 18
-    // b:    16 -- 17
-    assert.deepEqual(mergeRanges([12,18], [16,17]), [12,18])
+    // a:            20 --- 22
+    // b: 12 ---- 18
+    assert.deepEqual(mergeRanges([20,22], [12,18]), null)
+    // a:    16 -- 17
+    // b: 12 -------- 18
+    assert.deepEqual(mergeRanges([16,17], [12,18]), [12,18])
 })
 
 test("mergeRangeList", () => {
