@@ -2,16 +2,19 @@ import { readFile } from "../utils.js"
 
 type Range = number[]
 
-function parseFile(filePath: string): string[][] {
-    return readFile(filePath)
+function parseFile(filePath: string): [Range[], number[]] {
+    let data = readFile(filePath)
         .split("\n\n")
         .map((s: string) => s.split("\n"))
+    
+    let idRanges: Range[] = data[0].map(s => s.split("-").map(r => Number(r)))
+    let availableIds: number[] = data[1].map(s => Number(s))
+
+    return [idRanges, availableIds]
 }
 
 export function part1(filePath: string): number {
-    let data = parseFile(filePath)
-    let idRanges: Range[] = data[0].map(s => s.split("-").map(r => Number(r)))
-    let availableIds: number[] = data[1].map(s => Number(s))
+    let [idRanges, availableIds] = parseFile(filePath)
     
     return availableIds
         .filter(id => 
@@ -20,8 +23,8 @@ export function part1(filePath: string): number {
 }
 
 export function part2(filePath: string): number {
-    let data = parseFile(filePath)    
-    let idRanges: Range[] = data[0].map(s => s.split("-").map(r => Number(r)))
+    let [idRanges] = parseFile(filePath)
+
     let mergedRanges = mergeRangeList(idRanges)
     let totalValidIds = 0
 
