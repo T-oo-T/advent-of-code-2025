@@ -2,10 +2,14 @@ import { readFile } from "../utils.js"
 
 type Range = number[]
 
-export function part1(filePath: string): number {
-    let data: string[][] = readFile(filePath)
+function parseFile(filePath: string): string[][] {
+    return readFile(filePath)
         .split("\n\n")
         .map((s: string) => s.split("\n"))
+}
+
+export function part1(filePath: string): number {
+    let data = parseFile(filePath)
 
     if (data.length < 2) return 0
 
@@ -19,9 +23,7 @@ export function part1(filePath: string): number {
 }
 
 export function part2(filePath: string): number {
-    let data: string[][] = readFile(filePath)
-        .split("\n\n")
-        .map((s:string) => s.split("\n"))
+    let data = parseFile(filePath)
 
     if (data.length < 2) return 0
     
