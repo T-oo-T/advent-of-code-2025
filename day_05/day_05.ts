@@ -5,7 +5,7 @@ type Range = number[]
 export function part1(filePath: string): number {
     let data: string[][] = readFile(filePath)
         .split("\n\n")
-        .map(s => s.split("\n"))
+        .map((s: string) => s.split("\n"))
 
     if (data.length < 2) return 0
 
