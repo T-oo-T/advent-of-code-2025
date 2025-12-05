@@ -1,8 +1,8 @@
-const { readFile, sum } = require("../utils")
+import { readFile, sum } from"../utils.js"
 
 type Grid = number[][]
 
-function parseFile(filePath: string): Grid {
+export function parseFile(filePath: string): Grid {
     return readFile(filePath)
         .split("\n")
         .map((row: string) => 
@@ -11,7 +11,7 @@ function parseFile(filePath: string): Grid {
         )
 }
 
-function accessibleRolls(grid: Grid): Grid {
+export function accessibleRolls(grid: Grid): Grid {
     let rolls: number[][] = []
 
     let val = ([i, j]: number[]): number => grid[i]?.[j] || 0
@@ -38,12 +38,12 @@ function accessibleRolls(grid: Grid): Grid {
     return rolls
 }
 
-function part1(filePath: string): number {
+export function part1(filePath: string): number {
     let grid = parseFile(filePath)
     return accessibleRolls(grid).length
 }
 
-function part2(filePath: string): number {
+export function part2(filePath: string): number {
     let grid = parseFile(filePath)
     let totalRollsRemoved = 0
     let rollsToRemove = accessibleRolls(grid)
@@ -59,11 +59,4 @@ function part2(filePath: string): number {
     }
 
     return totalRollsRemoved
-}
-
-module.exports = {
-    parseFile,
-    accessibleRolls,
-    part1,
-    part2
 }
