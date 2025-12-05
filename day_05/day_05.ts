@@ -10,9 +10,6 @@ function parseFile(filePath: string): string[][] {
 
 export function part1(filePath: string): number {
     let data = parseFile(filePath)
-
-    if (data.length < 2) return 0
-
     let idRanges: Range[] = data[0].map(s => s.split("-").map(r => Number(r)))
     let availableIds: number[] = data[1].map(s => Number(s))
     
@@ -23,10 +20,7 @@ export function part1(filePath: string): number {
 }
 
 export function part2(filePath: string): number {
-    let data = parseFile(filePath)
-
-    if (data.length < 2) return 0
-    
+    let data = parseFile(filePath)    
     let idRanges: Range[] = data[0].map(s => s.split("-").map(r => Number(r)))
     let mergedRanges = mergeRangeList(idRanges)
     let totalValidIds = 0

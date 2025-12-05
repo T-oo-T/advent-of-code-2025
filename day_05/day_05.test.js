@@ -5,12 +5,10 @@ import assert from "assert/strict"
 import { part1, part2, mergeRangeList, mergeRanges } from "./day_05.ts"
 
 test("part1, sample input", () => {
-    assert.equal(part1("input-empty.txt"), 0)
     assert.equal(part1("input-sample.txt"), 3)
 })
 
 test("part2, sample input", () => {
-    assert.equal(part2("input-empty.txt"), 0)
     assert.equal(part2("input-sample.txt"), 14)
 })
 
