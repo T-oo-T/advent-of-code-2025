@@ -7,8 +7,8 @@ function parseFile(filePath: string): [Range[], number[]] {
         .split("\n\n")
         .map((s: string) => s.split("\n"))
     
-    let idRanges: Range[] = data[0].map(s => s.split("-").map(r => Number(r)))
-    let availableIds: number[] = data[1].map(s => Number(s))
+    let idRanges: Range[] = data[0].map((s:string) => s.split("-").map(r => Number(r)))
+    let availableIds: number[] = data[1].map((s:string) => Number(s))
 
     return [idRanges, availableIds]
 }
