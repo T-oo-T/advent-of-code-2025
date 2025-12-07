@@ -13,10 +13,12 @@ function quot(a, b) {
 }
 
 function sum(a, b) {
+    if (Array.isArray(a)) return a.reduce(sum, 0)
     return a + b
 }
 
 function product(a, b) {
+    if (Array.isArray(a)) return a.reduce(product, 1)
     return a * b
 }
 

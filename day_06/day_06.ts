@@ -80,9 +80,8 @@ export function part2(filePath: string) {
         res[res.length-1].push(data[j].substring(s, data[j].length+1).split("").map(s => Number(s)))
     }
     
-    let transposed = res.map(subm => transpose(subm))
-    res = transposed
-
+    res = res.map(transpose)
+    
     let operations = operationsRow.split(/\s+/).map(s => s.trim()).filter(s => s)
     let total: number = 0
 
@@ -97,8 +96,7 @@ export function part2(filePath: string) {
                 if (digit == 0) {
                     num /= 10
                 } else {
-                    let u = digit * Math.pow(10, res[i][j].length - k - 1)
-                    num += u
+                    num += digit * Math.pow(10, res[i][j].length - k - 1)
                 }
             }
 
@@ -106,9 +104,9 @@ export function part2(filePath: string) {
         }
         
         if (operation == '*') {
-            total += colNums.reduce(product,1)
+            total += product(colNums)
         } else {
-            total += colNums.reduce(sum,0)
+            total += sum(colNums)
         }
     }
 
