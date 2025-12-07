@@ -22,10 +22,21 @@ function product(a, b) {
     return a * b
 }
 
+function transpose(A) {
+    let T = Array.from(new Array(A[0].length), () => new Array(A.length).fill(0))
+    for (let i = 0; i < T.length; i++) {
+        for (let j = 0; j < T[i].length; j++) {
+            T[i][j] = A[j][i]
+        }
+    }
+    return T
+}
+
 module.exports = {
     readFile,
     mod,
     quot,
     sum,
-    product
+    product,
+    transpose
 }

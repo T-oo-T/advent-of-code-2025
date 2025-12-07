@@ -1,4 +1,4 @@
-import { readFile, sum, product } from "../utils.js"
+import { readFile, sum, product, transpose } from "../utils.js"
 
 type Worksheet = {
     numbers: number[][],
@@ -45,16 +45,6 @@ export function calculateWorksheet(workSheet: Worksheet): number[] {
 
 export function part1(filePath: string): number {
     return calculateWorksheet(parseFile(filePath)).reduce(sum)
-}
-
-export function transpose(A: number[][]) {
-    let T = Array.from(new Array(A[0].length), () => new Array(A.length).fill(0))
-    for (let i = 0; i < T.length; i++) {
-        for (let j = 0; j < T[i].length; j++) {
-            T[i][j] = A[j][i]
-        }
-    }
-    return T
 }
 
 export function part2(filePath: string) {

@@ -5,9 +5,9 @@ import {
     calculateColumn,
     calculateWorksheet,
     part1,
-    part2,
-    transpose
+    part2
 } from "./day_06.ts"
+import { transpose } from "../utils.js"
 
 test("parseFile", () => {
     assert.deepStrictEqual(parseFile("./input-empty.txt"), {numbers: [], operations: ['']})
