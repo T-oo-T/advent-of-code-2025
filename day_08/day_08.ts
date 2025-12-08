@@ -11,11 +11,9 @@ type Edge = {
 }
 
 export class UnionFind {
-    //components: number[]
     parents: number[]
 
     constructor(n: number) {
-        //this.components = Array.from(new Array(n).keys())
         this.parents = Array.from(new Array(n).keys())
     }
 
@@ -90,7 +88,7 @@ export function part2(filePath: string) {
     let i = 0
 
     let lastEdge: Edge = edges[0]
-    
+
     while (unionFind.componentCount() > 1) {
         lastEdge = edges[i]    
         unionFind.union(lastEdge.from,lastEdge.to)
