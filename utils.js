@@ -32,11 +32,24 @@ function transpose(A) {
     return T
 }
 
+function printMatrix(g) {
+    let out = ""
+    for (let i = 0; i < g.length; i++) {
+        for (let j = 0; j < g[i].length; j++) {
+            out += g[i][j]
+        }
+        console.log(out)
+        out=""
+    }
+    console.log("\n")
+}
+
 module.exports = {
     readFile,
     mod,
     quot,
     sum,
     product,
-    transpose
+    transpose,
+    printMatrix
 }
