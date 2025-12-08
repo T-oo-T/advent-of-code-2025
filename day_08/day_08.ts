@@ -11,35 +11,37 @@ type Edge = {
 }
 
 export class UnionFind {
-    components: number[]
+    //components: number[]
+    parents: number[]
 
     constructor(n: number) {
-        this.components = Array.from(new Array(n).keys())
+        //this.components = Array.from(new Array(n).keys())
+        this.parents = Array.from(new Array(n).keys())
     }
 
     find(i: number): number {
-        return this.components[i]
+        let root = i 
+        while (this.parents[root] != root) {
+            root = this.parents[root]
+        }
+        return root
     }
 
     union(a: number, b: number): undefined {
         let a_root = this.find(a)
         let b_root = this.find(b)
 
-        for (let i = 0; i < this.components.length; i++) {
-            if (this.components[i] == a_root) {
-                this.components[i] = b_root
-            }
-        }
+        this.parents[a_root] = b_root
     }
 
     componentCount(): number {
-        return new Set(this.components).size
+        return new Set(this.parents.map(p => this.find(p))).size
     }
 
     componentSizes(): number[] {
-        let compSizes = new Array(this.components.length).fill(0)
+        let compSizes = new Array(this.parents.length).fill(0)
 
-        for (let i = 0; i < this.components.length; i++) {
+        for (let i = 0; i < this.parents.length; i++) {
             compSizes[this.find(i)]++
         }
 
@@ -47,13 +49,12 @@ export class UnionFind {
     }
 }
 
-export function part1(filePath: string): number {
+function init(filePath: string) {
     let junctionBoxes: number[][] = readFile(filePath)
         .split("\n")
         .map((row:string) => row.split(",").map((d:string) => Number(d)))
     
     let unionFind = new UnionFind(junctionBoxes.length)
-    let connectionCount = filePath == "input-real.txt" ? 1000 : 10
     let edges: Edge[] = []
 
     for (let i = 0; i < junctionBoxes.length; i++) {
@@ -63,6 +64,13 @@ export function part1(filePath: string): number {
     }
     edges.sort((a,b) => a.weight - b.weight)
     
+    return { junctionBoxes, unionFind, edges }
+}
+
+export function part1(filePath: string): number {
+    let connectionCount = filePath == "input-real.txt" ? 1000 : 10
+
+    let { edges, unionFind } = init(filePath)
     for (let i = 0; i < connectionCount; i++) {
         let edge = edges[i]    
         unionFind.union(edge.from,edge.to)
@@ -78,5 +86,16 @@ export function part1(filePath: string): number {
 }
 
 export function part2(filePath: string) {
+    let { junctionBoxes, edges, unionFind } = init(filePath)
+    let i = 0
 
+    let lastEdge: Edge = edges[0]
+    
+    while (unionFind.componentCount() > 1) {
+        lastEdge = edges[i]    
+        unionFind.union(lastEdge.from,lastEdge.to)
+        i++
+    }
+
+    return junctionBoxes[lastEdge.from][0] * junctionBoxes[lastEdge.to][0]
 }
