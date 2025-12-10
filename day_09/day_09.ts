@@ -1,17 +1,52 @@
 import { readFile } from "../utils.js"
 
+const DEBUG = false
 type Point = number[]
+
+type LineSegment = {
+    a: Point,
+    b: Point
+}
+
+function log(...args) {
+    if (DEBUG) {
+        console.log(...args)
+    }
+}
+
+// l1 is always drawn horizontally from the cornerPoint x-position to the rightmost tile of the polygon + 1
+// l2 is drawn vertically or hoziontally between two red tiles of the polygon
+export function intersect(l1: LineSegment, l2: LineSegment) {
+    let minY = Math.min(l2.a[1], l2.b[1])
+    let maxY = Math.max(l2.a[1], l2.b[1])
+
+    // l1 is always drawn left to right 
+    let minX = Math.min(l1.a[0], l1.b[0])
+    let maxX = Math.max(l1.a[0], l1.b[0])
+    
+    if ( (minY < l1.a[1] && l1.a[1] < maxY) && // y between
+         (minX < l2.a[0] && l2.a[0] < maxX)    // x between
+        ) {
+        return true
+    }
+
+    return false
+}
 
 function square(leftPoint: Point, rightPoint: Point): number {
     return (Math.abs(leftPoint[0] - rightPoint[0]) + 1) * (Math.abs(leftPoint[1] - rightPoint[1]) + 1)
 }
 
-export function part1(filePath: string): number {
-    let g = readFile(filePath)
+function parseFile(filePath: string) {
+    return readFile(filePath)
         .split("\n")
         .map((row:string) => 
             row.split(",").map((s: string) => Number(s))
         )
+}
+
+export function part1(filePath: string): number {
+    let g = parseFile(filePath)
 
     let maxSquare = 0
 
@@ -20,6 +55,85 @@ export function part1(filePath: string): number {
             maxSquare = Math.max(maxSquare, square(g[i], g[j]))
         }
     }
+
+    return maxSquare
+}
+
+function cornerPoints(a: Point, b: Point): Point[] {
+    let [ax, ay] = a
+    let [bx, by] = b
+
+    if (ay == by || ax == bx) {
+        return []
+    }
+
+    return [
+        [ax,by],
+        [bx,ay]
+    ]
+}
+
+export function part2(filePath: string): number {
+    let redTiles = parseFile(filePath)
+    let edges: LineSegment[] = []
+    let rightMostRedTileX = 0
+    for (let [rx] of redTiles) {
+        rightMostRedTileX = Math.max(rightMostRedTileX, rx)
+    }
+    
+    for (let i = 0; i < redTiles.length; i++) {
+        let nextIndex = (i+1) % redTiles.length
+      
+        // only vertical edges
+        if (redTiles[i][0] == redTiles[nextIndex][0]) {
+            edges.push({
+                a: redTiles[i],
+                b: redTiles[nextIndex]
+            })
+        }
+    }
+
+    log("edges")
+    log(edges)
+
+    let maxSquare = 0
+
+    for (let i = 0; i < redTiles.length; i++) {
+        for (let j = i + 1; j < redTiles.length; j++) {
+            let candidateSquare = square(redTiles[i], redTiles[j])
+ 
+            log("trying out square with redTiles",redTiles[i],"and",redTiles[j])
+            log("candidateSquare is", candidateSquare)
+            
+            if (candidateSquare > maxSquare) {
+                log("candidateSquare > maxSquare, so proceed with check")
+                
+                let otherCornerPoints = cornerPoints(redTiles[i], redTiles[j])
+                
+                log({otherCornerPoints})
+                
+                let allCornerPointsInside = otherCornerPoints.every((cornerPoint) => {
+                    let intersectionCount = edges.filter((edge) => {
+                        return intersect(
+                            {a: cornerPoint, b: [rightMostRedTileX + 1, cornerPoint[1]]}, 
+                            edge)
+                    }).length
+                    log({intersectionCount})
+                    return intersectionCount % 2 > 0
+                })
+
+                
+                if (allCornerPointsInside) {
+                    log(`set maxSquare to: ${candidateSquare}`)
+                    log(`using ${redTiles[i]} and ${redTiles[j]}`)
+                    log("\n")
+                    
+                        maxSquare = candidateSquare
+                }
+            }
+        }
+    }
+
 
     return maxSquare
 }
