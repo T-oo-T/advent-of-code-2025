@@ -74,6 +74,17 @@ function cornerPoints(a: Point, b: Point): Point[] {
 }
 
 export function part2(filePath: string): number {
+    /* The idea here was to start with the same procedure as part 1:
+        - Go through all pairs of redTiles forming the corresponding rectangles
+        - Then filter them by checking that their other cornerPoint's are also inside the polygon, by:
+            - Drawing a line segment starting from the cornerPoint over the rightmost edge of the polygon
+            - Then count how many times the line segment crossed the polygons borders
+            - If the count is odd, the cornerPoint is inside the polygon, and if even, its outside
+            (This is the known as the ray casting solution to the point-in-polygon problem)
+        - If both cornerPoint's are inside the polygon this is a valid rectangle, otherwise it's not
+        There's something wrong with the ray casting procedure as this implementation gives the same answer
+        as part 1, which should be an invalid rectangle in this case.
+    */
     let redTiles = parseFile(filePath)
     let edges: LineSegment[] = []
     let rightMostRedTileX = 0
