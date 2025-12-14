@@ -2,13 +2,7 @@
 import { test } from "node:test"
 // @ts-ignore
 import assert from "node:assert/strict"
-import { readFile, sum } from "../utils.js"
-
-
-type Graph = {
-    [key: string]: string[]
-}
-
+import { part1, part2, paths } from "./day_11.ts"
 
 test("getPaths", () => {
     let graph = {
@@ -40,35 +34,6 @@ test("getPaths", () => {
         2
     )
 })
-
-function part1(filePath: string): number {
-    let data = readFile(filePath)
-        .split("\n")
-        .map((row:string) => row.split(": "))
-    
-    let graph = {}
-    
-    for (let [from, toString] of data) {
-        graph[from] = toString.split(" ")
-    }
-    
-    graph["out"] = []
-    
-    return paths(graph, "you", "out")
-}
-
-function paths(graph: Graph, from: string, to: string): number {
-    if (from == to) {
-        return 1
-    }
-
-    return sum(graph[from].map(node => paths(graph, node, to)))
-}
-
-function part2(filePath: string) {
-    return 0
-}
-
 
 test("part 1, sample input", () => {
     assert.equal(part1("input-sample.txt"), 5)
